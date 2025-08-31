@@ -1,0 +1,94 @@
+.hotel-container {
+  display: flex;
+  gap: 2rem;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.control-panel {
+  flex: 1;
+  max-width: 300px;
+}
+
+.control-panel input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.control-panel button {
+  display: block;
+  width: 100%;
+  margin: 6px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  background: #4a90e2;
+  color: white;
+  transition: 0.3s;
+}
+
+.control-panel button:hover {
+  background: #357ab7;
+}
+
+.booking-info {
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.hotel-layout {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.floor-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.floor-label {
+  width: 70px;
+  font-weight: bold;
+}
+
+.rooms-row {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.room {
+  width: 50px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: default;
+  color: white;
+}
+
+.room.available {
+  background: #4caf50; /* green */
+}
+
+.room.booked {
+  background: #e74c3c; /* red */
+}
+
+.room.booked-now {
+  background: #3498db; /* blue */
+  border: 2px solid #1f5a8d;
+}
