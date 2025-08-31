@@ -21,7 +21,7 @@ export default function HotelBooking() {
     const pos2 = r2 % 100;
 
     if (f1 === f2) return Math.abs(pos1 - pos2);
-    return (pos1 - 1) + 2 * Math.abs(f1 - f2) + (pos2 - 1);
+    return pos1 - 1 + 2 * Math.abs(f1 - f2) + (pos2 - 1);
   }
 
   function bookRooms() {
@@ -62,17 +62,28 @@ export default function HotelBooking() {
   }
 
   function randomize() {
+    // Flatten all available rooms into one array
+    const n=Number(numRooms);
+    const allAvailable = Object.values(available).flat();
+
+    // If n > available rooms, cap it
+    const count = Math.min(n, allAvailable.length);
+
+    // Randomly shuffle and pick 'count' rooms
+    const chosen = allAvailable
+      .sort(() => 0.5 - Math.random()) // shuffle
+      .slice(0, count);
+
+    // New availability after booking
     const newAvail = {};
     for (let f = 1; f <= 9; f++) {
-      newAvail[f] = Array.from({ length: 10 }, (_, i) => f * 100 + (i + 1)).filter(
-        () => Math.random() > 0.5
-      );
+      newAvail[f] = available[f].filter((room) => !chosen.includes(room));
     }
-    newAvail[10] = Array.from({ length: 7 }, (_, i) => 1000 + (i + 1)).filter(
-      () => Math.random() > 0.5
-    );
+    newAvail[10] = available[10].filter((room) => !chosen.includes(room));
+
+    // Update state
     setAvailable(newAvail);
-    setLatestBooking([]);
+    setLatestBooking(chosen);
   }
 
   function reset() {
@@ -110,7 +121,10 @@ export default function HotelBooking() {
             <p>Rooms: {latestBooking.join(", ")}</p>
             <p>
               Travel Time:{" "}
-              {travelTime(latestBooking[0], latestBooking[latestBooking.length - 1])}{" "}
+              {travelTime(
+                latestBooking[0],
+                latestBooking[latestBooking.length - 1]
+              )}{" "}
               minutes
             </p>
           </div>
